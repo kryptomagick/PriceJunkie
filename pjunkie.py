@@ -33,12 +33,7 @@ class PriceJunkie(object):
         return p * -1
 
     def guessHourPrice(self):
-        m = self.direction
-        if m < 0:
-            m *= -1
-        if m == 0:
-            m == 1
-        p = (self.avg - self.guessNextPrice() + (self.avgNext * m))
+        p = (self.avg - self.guessNextPrice() + self.avgNext + self.direction)
         return p
 
     def run(self):
@@ -46,7 +41,6 @@ class PriceJunkie(object):
         while True:
             self.lastPrice = self.currentPrice
             self.currentPrice = getCurrentPrice()
-            #self.priceHistory.append(self.currentPrice)
             self.total += self.currentPrice
             self.avg = self.total / c
             diff = self.currentPrice - (self.lastPrice)
